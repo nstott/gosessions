@@ -1,0 +1,29 @@
+Sessions are stores of information kept on the server that 
+persist across page loads
+this is to be used with Gary Burd's Twister, and functions as a middleware handler
+
+install with:
+goinstall github.com/nstott/session
+
+in your server init, run something like:
+
+	server.Run(":8080",
+		SessionHandler(NewMemoryStore(),
+		web.NewRouter().
+		Register("/", "GET", index).
+...
+
+
+you can manipulate session data as follows
+	var val int
+	var f float64
+	var s string
+
+	Get(req, "float64", &f)
+	Set(req, "float64", f + .1)
+
+	Get(req, "string", &s)
+	Set(req, "string", s + ".")
+
+	Get(req,"counter2", &val)
+	Set(req, "counter2", val + 1)
